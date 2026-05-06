@@ -35,7 +35,7 @@ export default {
 
   data() {
     return {
-      page: "login", // за замовчуванням
+      page: "login", 
       user: null,
     };
   },
