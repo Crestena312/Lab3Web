@@ -1,11 +1,8 @@
 <template>
   <Navbar :page="page" @change-page="changePage" />
-
-  <!-- Захищені сторінки -->
   <MainPage v-if="page === 'main'" />
   <ProfilePage v-if="page === 'profile'" @logout="handleLogout" />
 
-  <!-- Відкриті сторінки -->
   <AboutPage v-if="page === 'about'" />
 
   <LoginPage v-if="page === 'login'" @login-success="handleLogin" />
