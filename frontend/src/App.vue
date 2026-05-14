@@ -2,62 +2,44 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="#" @click.prevent="page = 'main'">SKR</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#menu"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a
-              class="nav-link"
-              :class="{ active: page === 'main' }"
-              href="#"
-              @click.prevent="openProtected('main')"
-              >Main</a
-            >
+            <a class="nav-link" href="#" @click.prevent="openProtected('main')">
+              Main
+            </a>
           </li>
+
           <li class="nav-item">
-            <a
-              class="nav-link"
-              :class="{ active: page === 'about' }"
-              href="#"
-              @click.prevent="page = 'about'"
-              >About</a
-            >
+            <a class="nav-link" href="#" @click.prevent="page = 'about'">
+              About
+            </a>
           </li>
+
           <li class="nav-item">
             <a
               class="nav-link"
-              :class="{ active: page === 'profile' }"
               href="#"
               @click.prevent="openProtected('profile')"
-              >Profile</a
             >
+              Profile
+            </a>
           </li>
+
           <li class="nav-item">
-            <a
-              class="nav-link"
-              :class="{ active: page === 'signin' }"
-              href="#"
-              @click.prevent="page = 'signin'"
-              >Sign in</a
-            >
+            <a class="nav-link" href="#" @click.prevent="page = 'signin'">
+              Sign in
+            </a>
           </li>
+
           <li class="nav-item">
-            <a
-              class="nav-link"
-              :class="{ active: page === 'registration' }"
-              href="#"
-              @click.prevent="page = 'registration'"
-              >Registration</a
-            >
+            <a class="nav-link" href="#" @click.prevent="page = 'registration'">
+              Registration
+            </a>
           </li>
         </ul>
+
         <button
           v-if="currentUser"
           class="btn btn-outline-light btn-sm"
@@ -70,41 +52,41 @@
   </nav>
 
   <main class="container mt-5">
-    <div v-if="message" class="alert" :class="messageType">{{ message }}</div>
+    <div v-if="message" class="alert" :class="messageType">
+      {{ message }}
+    </div>
 
     <section v-if="page === 'main'">
       <h1 class="text-center mb-4">Телефонний довідник AllContacts</h1>
-      <div class="table-responsive">
-        <table
-          class="table table-striped table-hover table-bordered text-center align-middle"
-        >
-          <thead class="table-dark">
-            <tr>
-              <th>#</th>
-              <th>Ім’я</th>
-              <th>Прізвище</th>
-              <th>Номер телефону</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(contact, index) in contacts"
-              :key="contact.id"
-              @click="selectedContact = contact"
-              :class="{ 'table-secondary': selectedContact?.id === contact.id }"
-            >
-              <td>{{ index + 1 }}</td>
-              <td>{{ contact.firstName }}</td>
-              <td>{{ contact.lastName }}</td>
-              <td>{{ contact.phone }}</td>
-              <td>{{ contact.email }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
 
-      <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+      <table class="table table-striped table-bordered text-center">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Ім’я</th>
+            <th>Прізвище</th>
+            <th>Телефон</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            v-for="(contact, index) in contacts"
+            :key="contact.id"
+            @click="selectedContact = contact"
+            :class="{ 'table-secondary': selectedContact?.id === contact.id }"
+          >
+            <td>{{ index + 1 }}</td>
+            <td>{{ contact.firstName }}</td>
+            <td>{{ contact.lastName }}</td>
+            <td>{{ contact.phone }}</td>
+            <td>{{ contact.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-center gap-3 mt-4">
         <button class="btn btn-secondary" @click="openAddForm">Додати</button>
         <button class="btn btn-secondary" @click="openEditForm">
           Редагувати
@@ -117,8 +99,9 @@
         </button>
       </div>
 
-      <div class="card shadow p-4 mt-4" v-if="showContactForm">
+      <div v-if="showContactForm" class="card shadow p-4 mt-4">
         <h4>{{ editMode ? "Редагувати контакт" : "Додати контакт" }}</h4>
+
         <form @submit.prevent="saveContact">
           <div class="row g-3">
             <div class="col-md-3">
@@ -129,6 +112,7 @@
                 required
               />
             </div>
+
             <div class="col-md-3">
               <input
                 v-model="contactForm.lastName"
@@ -137,6 +121,7 @@
                 required
               />
             </div>
+
             <div class="col-md-3">
               <input
                 v-model="contactForm.phone"
@@ -145,6 +130,7 @@
                 required
               />
             </div>
+
             <div class="col-md-3">
               <input
                 v-model="contactForm.email"
@@ -155,6 +141,7 @@
               />
             </div>
           </div>
+
           <button class="btn btn-primary mt-3">Зберегти</button>
           <button
             type="button"
@@ -167,24 +154,26 @@
       </div>
     </section>
 
+    <!-- ABOUT -->
     <section v-if="page === 'about'">
       <h1 class="text-center mb-4">About Web-Site</h1>
+
       <div class="card shadow p-4">
         <h3>Про сайт "AddContacts"</h3>
         <p>
           Веб-сайт є телефонним довідником для збереження, перегляду та
           керування контактною інформацією користувачів.
         </p>
+
         <h3>Основні можливості</h3>
-        <p>
-          Додавання, редагування, видалення та сортування контактів. Дані
-          завантажуються з Web-сервера та зберігаються у SQLite.
-        </p>
+        <p>Додавання, редагування, видалення та сортування контактів.</p>
+
         <h3>Автор</h3>
         <p>Shvydko Kristina</p>
       </div>
     </section>
 
+    <!-- SIGN IN -->
     <section v-if="page === 'signin'" class="d-flex justify-content-center">
       <form
         class="bg-secondary text-white text-center rounded p-5"
@@ -192,6 +181,7 @@
         @submit.prevent="login"
       >
         <h1 class="fw-bold display-5 mb-4">Welcome back!</h1>
+
         <input
           v-model="loginForm.email"
           type="email"
@@ -199,6 +189,7 @@
           placeholder="Enter Email address..."
           required
         />
+
         <input
           v-model="loginForm.password"
           type="password"
@@ -206,7 +197,9 @@
           placeholder="Password"
           required
         />
+
         <button class="btn btn-dark w-75 rounded-pill mt-4">Log in</button>
+
         <button
           type="button"
           class="btn btn-dark w-75 rounded-pill mt-3"
@@ -217,6 +210,7 @@
       </form>
     </section>
 
+    <!-- REGISTRATION -->
     <section
       v-if="page === 'registration'"
       class="d-flex justify-content-center"
@@ -227,6 +221,7 @@
         @submit.prevent="register"
       >
         <h1 class="fw-bold mb-4">Create an account!</h1>
+
         <div class="row justify-content-center g-3">
           <div class="col-md-4">
             <input
@@ -236,6 +231,7 @@
               required
             />
           </div>
+
           <div class="col-md-4">
             <input
               v-model="registerForm.lastName"
@@ -245,6 +241,7 @@
             />
           </div>
         </div>
+
         <input
           v-model="registerForm.email"
           type="email"
@@ -252,6 +249,7 @@
           placeholder="Email"
           required
         />
+
         <div class="row justify-content-center mt-3 g-3">
           <div class="col-md-4">
             <input
@@ -262,6 +260,7 @@
               required
             />
           </div>
+
           <div class="col-md-4">
             <input
               v-model="registerForm.repeatPassword"
@@ -272,6 +271,7 @@
             />
           </div>
         </div>
+
         <div class="row justify-content-center mt-3 g-3">
           <div class="col-md-4">
             <input
@@ -280,6 +280,7 @@
               placeholder="Sex"
             />
           </div>
+
           <div class="col-md-4">
             <input
               v-model="registerForm.birthDate"
@@ -288,24 +289,29 @@
             />
           </div>
         </div>
+
         <button class="btn btn-dark w-50 rounded-pill mt-4">
           Register account
         </button>
       </form>
     </section>
 
+    <!-- PROFILE -->
     <section v-if="page === 'profile' && currentUser">
       <h1 class="text-center mb-4">Profile</h1>
+
       <div class="card shadow p-4">
         <h4>User Settings</h4>
+
         <div class="row g-3">
           <div class="col-md-4">
             <input
               v-model="profileForm.firstName"
               class="form-control"
-              placeholder="Імʼя"
+              placeholder="Ім’я"
             />
           </div>
+
           <div class="col-md-4">
             <input
               v-model="profileForm.lastName"
@@ -313,6 +319,7 @@
               placeholder="Прізвище"
             />
           </div>
+
           <div class="col-md-4">
             <input
               v-model="profileForm.status"
@@ -320,6 +327,7 @@
               placeholder="Статус"
             />
           </div>
+
           <div class="col-md-4">
             <input
               v-model="profileForm.email"
@@ -327,6 +335,7 @@
               placeholder="Email"
             />
           </div>
+
           <div class="col-md-4">
             <input
               v-model="profileForm.phone"
@@ -334,6 +343,7 @@
               placeholder="Телефон"
             />
           </div>
+
           <div class="col-md-4">
             <input
               v-model="profileForm.city"
@@ -342,6 +352,7 @@
             />
           </div>
         </div>
+
         <button class="btn btn-secondary mt-3" @click="saveProfile">
           Зберегти зміни
         </button>
@@ -355,17 +366,24 @@ import { onMounted, reactive, ref } from "vue";
 import api from "./services/api";
 
 const page = ref("signin");
+
 const currentUser = ref(
   JSON.parse(localStorage.getItem("currentUser") || "null"),
 );
+
 const contacts = ref([]);
 const selectedContact = ref(null);
 const showContactForm = ref(false);
 const editMode = ref(false);
+
 const message = ref("");
 const messageType = ref("alert-success");
 
-const loginForm = reactive({ email: "", password: "" });
+const loginForm = reactive({
+  email: "",
+  password: "",
+});
+
 const registerForm = reactive({
   firstName: "",
   lastName: "",
@@ -375,6 +393,7 @@ const registerForm = reactive({
   sex: "",
   birthDate: "",
 });
+
 const profileForm = reactive({
   firstName: "",
   lastName: "",
@@ -383,6 +402,7 @@ const profileForm = reactive({
   phone: "",
   city: "",
 });
+
 const contactForm = reactive({
   id: null,
   firstName: "",
@@ -394,7 +414,10 @@ const contactForm = reactive({
 function showMessage(text, type = "success") {
   message.value = text;
   messageType.value = type === "success" ? "alert-success" : "alert-danger";
-  setTimeout(() => (message.value = ""), 3000);
+
+  setTimeout(() => {
+    message.value = "";
+  }, 3000);
 }
 
 function setUser(user) {
@@ -403,10 +426,14 @@ function setUser(user) {
   Object.assign(profileForm, user);
 }
 
-function logout() {
+async function logout() {
+  await api.logout();
+
   currentUser.value = null;
   localStorage.removeItem("currentUser");
   page.value = "signin";
+
+  showMessage("Ви вийшли з акаунта");
 }
 
 function openProtected(targetPage) {
@@ -415,43 +442,81 @@ function openProtected(targetPage) {
     showMessage("Спочатку увійдіть у систему", "error");
     return;
   }
+
   page.value = targetPage;
-  if (targetPage === "main") loadContacts();
+
+  if (targetPage === "main") {
+    loadContacts();
+  }
 }
 
 async function register() {
+  if (registerForm.password !== registerForm.repeatPassword) {
+    showMessage("Паролі не співпадають", "error");
+    return;
+  }
+
   try {
-    const { data } = await api.post("/register", registerForm);
+    const { data } = await api.register(registerForm);
+
+    if (!data.success) {
+      showMessage(data.message, "error");
+      return;
+    }
+
     setUser(data.user);
     page.value = "main";
+
     await loadContacts();
+
     showMessage(data.message);
   } catch (error) {
-    showMessage(error.response?.data?.message || "Помилка реєстрації", "error");
+    console.log(error);
+    showMessage("Помилка реєстрації", "error");
   }
 }
 
 async function login() {
   try {
-    const { data } = await api.post("/login", loginForm);
+    const { data } = await api.login(loginForm);
+
+    if (!data.success) {
+      showMessage(data.message, "error");
+      return;
+    }
+
     setUser(data.user);
     page.value = "main";
+
     await loadContacts();
+
     showMessage(data.message);
   } catch (error) {
-    showMessage(error.response?.data?.message || "Помилка входу", "error");
+    console.log(error);
+    showMessage("Помилка входу", "error");
   }
 }
 
 async function saveProfile() {
-  const { data } = await api.put(`/users/${currentUser.value.id}`, profileForm);
-  setUser(data.user);
-  showMessage("Профіль оновлено");
+  try {
+    const { data } = await api.updateCurrentUser(profileForm);
+
+    setUser(data);
+    showMessage("Профіль оновлено");
+  } catch (error) {
+    console.log(error);
+    showMessage("Помилка оновлення профілю", "error");
+  }
 }
 
 async function loadContacts() {
-  const { data } = await api.get("/contacts");
-  contacts.value = data;
+  try {
+    const { data } = await api.getContacts();
+    contacts.value = data;
+  } catch (error) {
+    console.log(error);
+    showMessage("Помилка завантаження контактів", "error");
+  }
 }
 
 function openAddForm() {
@@ -462,38 +527,61 @@ function openAddForm() {
     phone: "",
     email: "",
   });
+
   editMode.value = false;
   showContactForm.value = true;
 }
 
 function openEditForm() {
-  if (!selectedContact.value)
-    return showMessage("Оберіть контакт у таблиці", "error");
+  if (!selectedContact.value) {
+    showMessage("Оберіть контакт у таблиці", "error");
+    return;
+  }
+
   Object.assign(contactForm, selectedContact.value);
+
   editMode.value = true;
   showContactForm.value = true;
 }
 
 async function saveContact() {
-  if (editMode.value) {
-    await api.put(`/contacts/${contactForm.id}`, contactForm);
-    showMessage("Контакт оновлено");
-  } else {
-    await api.post("/contacts", contactForm);
-    showMessage("Контакт додано");
+  try {
+    if (editMode.value) {
+      await api.updateContact(contactForm.id, contactForm);
+      showMessage("Контакт оновлено");
+    } else {
+      await api.addContact(contactForm);
+      showMessage("Контакт додано");
+    }
+
+    showContactForm.value = false;
+    selectedContact.value = null;
+
+    await loadContacts();
+  } catch (error) {
+    console.log(error);
+    showMessage("Помилка збереження контакту", "error");
   }
-  showContactForm.value = false;
-  selectedContact.value = null;
-  await loadContacts();
 }
 
 async function deleteContact() {
-  if (!selectedContact.value)
-    return showMessage("Оберіть контакт у таблиці", "error");
-  await api.delete(`/contacts/${selectedContact.value.id}`);
-  selectedContact.value = null;
-  await loadContacts();
-  showMessage("Контакт видалено");
+  if (!selectedContact.value) {
+    showMessage("Оберіть контакт у таблиці", "error");
+    return;
+  }
+
+  try {
+    await api.deleteContact(selectedContact.value.id);
+
+    selectedContact.value = null;
+
+    await loadContacts();
+
+    showMessage("Контакт видалено");
+  } catch (error) {
+    console.log(error);
+    showMessage("Помилка видалення контакту", "error");
+  }
 }
 
 function sortContacts() {
