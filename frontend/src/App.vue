@@ -292,7 +292,6 @@
       </form>
     </section>
 
-    <!-- PROFILE -->
     <section v-if="page === 'profile' && currentUser">
       <h1 class="text-center mb-4">Profile</h1>
 
