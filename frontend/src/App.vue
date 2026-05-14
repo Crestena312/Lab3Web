@@ -153,8 +153,6 @@
         </form>
       </div>
     </section>
-
-    <!-- ABOUT -->
     <section v-if="page === 'about'">
       <h1 class="text-center mb-4">About Web-Site</h1>
 
@@ -173,7 +171,6 @@
       </div>
     </section>
 
-    <!-- SIGN IN -->
     <section v-if="page === 'signin'" class="d-flex justify-content-center">
       <form
         class="bg-secondary text-white text-center rounded p-5"
@@ -210,7 +207,6 @@
       </form>
     </section>
 
-    <!-- REGISTRATION -->
     <section
       v-if="page === 'registration'"
       class="d-flex justify-content-center"
